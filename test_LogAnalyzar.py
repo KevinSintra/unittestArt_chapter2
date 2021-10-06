@@ -12,3 +12,7 @@ class TestLogAnalyzer:
         result = logAnalyzar.isValidLogFileName(fileName)
         assert result == expected
     
+    def test_IsValidLogFileName_EmptyFileName_ThrowsExpection(self):
+        logAnalyzar = LogAnalyzer()
+        with pytest.raises(Exception):
+            logAnalyzar.isValidLogFileName("")
