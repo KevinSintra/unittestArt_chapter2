@@ -1,4 +1,5 @@
 from LogAnalyzer import LogAnalyzer
+import pytest
 
 class TestLogAnalyzer:
     def test_IsValidFileName_badExtension_RetunrFalse(self):
@@ -6,12 +7,10 @@ class TestLogAnalyzer:
         result = logAnalyzar.isValidLogFileName("fileName.foo")
         assert result == False
 
-    def test_IsValidLogFileName_GoodExtensionLowercase_ReturnTrue(self):
+    # parametrize 可設定多種參數, 達到減少測試方法的數量並增加可讀性.
+    @pytest.mark.parametrize("fileName", ["fileName.slf", "fileName.SLF"], ids=["testLower", "testUpper"])
+    def test_IsValidLogFileName_ValidExtension_ReturnTrue(self, fileName):
         logAnalyzar = LogAnalyzer()
-        result = logAnalyzar.isValidLogFileName("fileName.slf")
+        result = logAnalyzar.isValidLogFileName(fileName)
         assert result == True
     
-    def test_IsValidLogFileName_GoodExtensionUppercase_ReturnTrue(self):
-        logAnalyzar = LogAnalyzer()
-        result = logAnalyzar.isValidLogFileName("fileName.SLF")
-        assert result == True
