@@ -16,3 +16,11 @@ class TestLogAnalyzer:
         logAnalyzar = LogAnalyzer()
         with pytest.raises(Exception):
             logAnalyzar.isValidLogFileName("")
+
+    # 驗證系統狀態
+    @pytest.mark.parametrize("fileName, expected", [("badFile.foo", False), ("goodFile.slf", True)],
+        ids=["badFile", "goodFile"])
+    def test_IsValidLogFileName_WhenCalled_ChangesWasLastFileNameValid(self, fileName, expected):
+        logAnalyzer = LogAnalyzer()
+        logAnalyzer.isValidLogFileName(fileName)
+        assert logAnalyzer.wasLastFileNameValid == expected
